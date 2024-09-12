@@ -1,0 +1,16 @@
+# CLIP Fine-Tuner FastAPI
+
+This project provides a FastAPI application to serve a fine-tuned CLIP model for image classification. Users can upload an image and specify a model name to get predictions based on predefined subcategories.
+
+## Prerequisites
+- Python 3.8 or higher
+- FastAPI
+- `torch` (PyTorch)
+- `clip` (CLIP)
+- `PIL` (Pillow)
+- `requests`
+
+You can install the required packages using `pip`:
+
+```bash
+pip install fastapi torch pillow requests
