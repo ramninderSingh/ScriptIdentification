@@ -69,15 +69,15 @@ class ImageDataset(Dataset):
 max_images = 10000
 
 # Create datasets
-hindi_dataset = ImageDataset('ScriptDataset/TestDataset/BSTD/hindi', label=0, max_images=max_images, transform=data_transforms)
-english_dataset = ImageDataset('ScriptDataset/TestDataset/BSTD/english', label=1, max_images=max_images, transform=data_transforms)
-gujarati_dataset = ImageDataset('ScriptDataset/TestDataset/BSTD/gujarati', label=2, max_images=max_images, transform=data_transforms)
-hindi_dataset1 = ImageDataset('ScriptDataset/TrainDataset/BSTD/hindi', label=0, max_images=max_images, transform=data_transforms)
-english_dataset1 = ImageDataset('ScriptDataset/TrainDataset/BSTD/english', label=1, max_images=max_images, transform=data_transforms)
-gujarati_dataset1 = ImageDataset('ScriptDataset/TrainDataset/BSTD/gujarati', label=2, max_images=max_images, transform=data_transforms)
+hindi_dataset = ImageDataset('recognition/train/hindi', label=0, max_images=max_images, transform=data_transforms)
+english_dataset = ImageDataset('recognition/train/english', label=1, max_images=max_images, transform=data_transforms)
+gujarati_dataset = ImageDataset('recognition/train/punjabi', label=2, max_images=max_images, transform=data_transforms)
+hindi_dataset1 = ImageDataset('recognition/test/hindi', label=0, max_images=max_images, transform=data_transforms)
+english_dataset1 = ImageDataset('recognition/test/english', label=1, max_images=max_images, transform=data_transforms)
+gujarati_dataset1 = ImageDataset('recognition/test/punjabi', label=0, max_images=max_images, transform=data_transforms)
 
 # Combine datasets
-full_dataset = ConcatDataset([hindi_dataset, english_dataset,gujarati_dataset])
+full_dataset = ConcatDataset([hindi_dataset, english_dataset,gujarati_dataset,hindi_dataset1, english_dataset1,gujarati_dataset1])
 
 # Create a DataLoader
 batch_size = 512
@@ -132,7 +132,7 @@ alexnet.classifier[6] = nn.Sequential(
     nn.Linear(64, 3)
 )
 
-model_name = "models/alexnet/alex_realaug_3.pt"
+model_name = "alex_real_HEP.pt"
 alexnet.load_state_dict(torch.load(model_name, map_location=device))
 alexnet.eval()
 

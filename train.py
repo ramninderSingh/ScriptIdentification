@@ -172,12 +172,12 @@ class ImageDataset2(Dataset):
 # Parameters
 max_images = 10000
 
-hindi_dataset = ImageDataset2('ScriptDataset/TrainDataset/BSTD/hindi', label=0, max_images=max_images, transform=None)
-english_dataset = ImageDataset2('ScriptDataset/TrainDataset/BSTD/english', label=1, max_images=max_images, transform=None)
-gujarati_dataset = ImageDataset2('ScriptDataset/TrainDataset/BSTD/gujarati', label=2, max_images=max_images, transform=None)
+hindi_dataset = ImageDataset2('recognition/train/hindi', label=0, max_images=max_images, transform=None)
+english_dataset = ImageDataset2('recognition/train/english', label=1, max_images=max_images, transform=None)
+gujarati_dataset = ImageDataset2('recognition/train/punjabi', label=2, max_images=max_images, transform=None)
 
 # Combine datasets
-full_dataset = ConcatDataset([hindi_dataset, english_dataset,gujarati_dataset])
+full_dataset = ConcatDataset([hindi_dataset, english_dataset])
 train_size = int(0.8 * len(full_dataset)) 
 val_size = len(full_dataset) - train_size 
 train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size])
@@ -309,6 +309,8 @@ alexnet.classifier[6] = nn.Sequential(
 optimizer_conv_alexnet = optim.SGD(alexnet.classifier[6].parameters(), lr=0.001, momentum=0.9)
 
 
+
+
 # # Resnet18
 # resnet18 = models.resnet18(weights='IMAGENET1K_V1')
 
@@ -340,10 +342,10 @@ optimizer_conv_alexnet = optim.SGD(alexnet.classifier[6].parameters(), lr=0.001,
 #     nn.LeakyReLU(),
 #     nn.Linear(512, 64),
 #     nn.LeakyReLU(),
-#     nn.Linear(64, 3)
+#     nn.Linear(64, 2)
 # )
 # optimizer_conv_alexnet_1 = optim.SGD(alexnet_1.classifier[6].parameters(), lr=0.001, momentum=0.9)
-# alexnet_1.load_state_dict(torch.load("models/alexnet/alex_synrealaug_new2_3.pt"))
+# alexnet_1.load_state_dict(torch.load("models/alexnet/alex_syn_2.pt"))
 
 # #Retrained resnet18
 # resnet18_1 = models.resnet18(weights='IMAGENET1K_V1')
@@ -372,5 +374,5 @@ train_cost_listv5, val_cost_listv5, model_to_save=train_model(model=alexnet,
                                                                        criterion = nn.CrossEntropyLoss(),
                                                                        n_epochs=100)
 
-torch.save(model_to_save.state_dict(), "alex_realaug_3.pt")
+torch.save(model_to_save.state_dict(), "alex_real_HEP.pt")
 logging.info("Training Complete. Model saved as alex_realaug_3.pt")
