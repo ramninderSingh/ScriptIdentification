@@ -35,7 +35,11 @@ train_config.update(common_config)
 test_config = {
     'test_batch_size': 512,
     'cpu_workers': 4,
+<<<<<<< HEAD
     'reload_model': '/DATA1/ocrteam/CRNN/savedModels/HEP/crnn_real_t2.pt',
+=======
+    'reload_model': '/DATA1/ocrteam/CRNN/savedModels/HEP/crnn_real(2)_t2.pt',
+>>>>>>> clip
     'max_images':9000,
     'classes':3,
     'hindi_path_real_train': '/DATA1/ocrteam/recognition/train/hindi/',
