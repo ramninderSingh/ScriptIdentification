@@ -1,25 +1,20 @@
 import clip
 import torch
-from torch.utils.data import Dataset, DataLoader,ConcatDataset
+from torch.utils.data import Dataset, DataLoader
 import torch.nn as nn
 from torchvision import transforms
 from tqdm import tqdm
 from PIL import Image
 import numpy as np
-import logging
 import pandas as pd
 from sklearn.metrics import precision_recall_fscore_support
+import logging
+import json
 
 # Load the dataset
-dataset= pd.read_pickle('ScriptDataset/TestDataset/BSTD/BSTD_test_HEP.pkl')
-# dataset2 = pd.read_pickle('ScriptDataset/TrainDataset/BSTD/BSTD_train_HE.pkl')
-# dataset = pd.concat([dataset1, dataset2], ignore_index=True)
+dataset = pd.read_pickle('all_train/Real_test_hindienglish.pkl')
 
-# Load the fine-tuned model
-model_path = 'models/clip/clip_finetuned_HEP_real.pth'
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# Define the ImageData class
+# Define the ImageData class with filenames
 class ImageData(Dataset):
     def __init__(self, data):
         self.data = data
@@ -37,6 +32,7 @@ class ImageData(Dataset):
             item = self.data.iloc[idx]
             image = item['image']
             subcategory = item['label']
+            filename = item['filename']  # Fetch the filename
 
             # Convert numpy array to PIL Image
             if isinstance(image, np.ndarray):
@@ -53,14 +49,14 @@ class ImageData(Dataset):
                 raise TypeError(f"Unexpected image type at index {idx}: {type(image)}")
 
             label = subcategories.index(subcategory)
-            return self.transform(image), label
+            return self.transform(image), label, filename
         except Exception as e:
             error_msg = f"Error accessing item at index {idx}: {str(e)}"
             print(error_msg)
             logging.error(error_msg)
-            # Return a placeholder image and label
+            # Return a placeholder image, label, and empty filename
             placeholder_image = Image.new('RGB', (224, 224), color='gray')
-            return self.transform(placeholder_image), -1
+            return self.transform(placeholder_image), -1, ""
 
 # Define subcategories
 subcategories = list(dataset['label'].unique())
@@ -70,7 +66,7 @@ val_loader = DataLoader(ImageData(dataset), batch_size=32, shuffle=False)
 print("Created Dataloader")
 
 # Load the CLIP model
-clip_model, preprocess = clip.load("ViT-B/32", device=device)
+clip_model, preprocess = clip.load("ViT-B/32", device="cuda" if torch.cuda.is_available() else "cpu")
 
 # Define the model architecture
 class CLIPFineTuner(nn.Module):
@@ -85,7 +81,9 @@ class CLIPFineTuner(nn.Module):
         return self.classifier(features)
 
 # Load the fine-tuned model
+model_path = 'models/clip/clip_finetuned_HE_real.pth'
 num_classes = len(subcategories)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_ft = CLIPFineTuner(clip_model, num_classes)
 model_ft.load_state_dict(torch.load(model_path))
 model_ft = model_ft.to(device)
@@ -96,9 +94,10 @@ print("Starting Testing")
 # Testing loop
 all_labels = []
 all_predictions = []
+results = {}
 
 with torch.no_grad():
-    for images, labels in tqdm(val_loader, desc="Testing"):
+    for images, labels, filenames in tqdm(val_loader, desc="Testing"):
         try:
             images, labels = images.to(device), labels.to(device)
 
@@ -107,9 +106,20 @@ with torch.no_grad():
 
             all_labels.extend(labels.cpu().numpy())
             all_predictions.extend(predicted.cpu().numpy())
+
+            # Store results with filenames and predictions
+            for filename, pred in zip(filenames, predicted.cpu().numpy()):
+                results[filename] = subcategories[pred]  # Store the predicted class with the filename
+
         except Exception as e:
             print(f"Error in testing loop: {str(e)}")
             continue
+
+# Save the results to a JSON file
+with open('predictions_with_filenames.json', 'w') as json_file:
+    json.dump(results, json_file)
+
+print("Results saved to predictions_with_filenames.json")
 
 # Calculate accuracy
 total = len(all_labels)

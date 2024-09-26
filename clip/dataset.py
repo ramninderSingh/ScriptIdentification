@@ -5,16 +5,11 @@ from PIL import Image
 from tqdm import tqdm
 
 # Define the paths
-base_path = 'ScriptDataset/TrainDataset/SynData'
+base_path = '/DATA1/ocrteam/recognition/test'
 folders = ['hindi', 'english']
+all_subfolders = [f for f in os.listdir(base_path) if os.path.isdir(os.path.join(base_path, f))]
+other_folders = [folder for folder in all_subfolders if folder not in folders]
 
-# Define standard size for all images
-STANDARD_SIZE = (224, 224)  # This is a common input size for many models
-
-# Initialize an empty list to hold dataset information
-data = []
-
-# Function to preprocess image
 def preprocess_image(image_path):
     try:
         with Image.open(image_path) as img:
@@ -29,8 +24,22 @@ def preprocess_image(image_path):
         print(f"Error processing {image_path}: {str(e)}")
         return None
 
-# Parameter to limit the number of images per category
-max_number = 100000  # You can set this to any desired value
+def get_image_count(folder_path):
+    # Count the number of valid image files in a folder
+    count = 0
+    for root, _, files in os.walk(folder_path):
+        count += sum(1 for filename in files if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')))
+    return count
+
+
+STANDARD_SIZE = (224, 224)  # This is a common input size for many models
+
+# Get the minimum number of images across all folders
+min_image_count = min(get_image_count(os.path.join(base_path, f)) for f in folders)
+max_number = 10000  # Set max_number as the minimum image count
+
+# Initialize an empty list to hold dataset information
+data = []
 
 # Loop through each folder and its subfolders
 for folder in folders:
@@ -55,9 +64,8 @@ for folder in folders:
                 image_array = preprocess_image(image_path)
 
                 if image_array is not None:
-                    # Append the image data and its corresponding label
-                    label = os.path.basename(folder)  # Use the subfolder name as the label
-                    data.append({'image': image_array, 'label': label})
+                    label = os.path.basename(folder) 
+                    data.append({'image': image_array, 'label': label, 'filename': filename})
                     count += 1
 
 # Convert the list to a DataFrame
@@ -68,6 +76,10 @@ print(f"Dataset created with {len(df)} entries.")
 print(f"Image shape: {df['image'].iloc[0].shape}")
 print(f"Labels: {df['label'].value_counts().to_dict()}")
 
+# Create a name for the pickle file based on the first letter of each folder
+folder_names = ''.join([f for f in folders])  # Get the first letter of each folder
+file_name = f"all_train/Real_test_{folder_names}.pkl"
+
 # Save the DataFrame as a pickle file
-df.to_pickle('Syn_train_HE.pkl')
-print("Dataset saved as 'Syn_train_HE.pkl'")
+df.to_pickle(file_name)
+print(f"Dataset saved as '{file_name}'")
