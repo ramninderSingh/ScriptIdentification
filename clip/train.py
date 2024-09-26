@@ -11,7 +11,7 @@ from PIL import Image
 import numpy as np
 
 # Load the dataset
-dataset = pd.read_pickle('ScriptDataset/TrainDataset/BSTD/BSTD_train_HE.pkl')
+dataset = pd.read_pickle('ScriptDataset/TrainDataset/BSTD/')
 print(f"Dataset shape: {dataset.shape}")
 
 
@@ -85,7 +85,7 @@ class CLIPFineTuner(nn.Module):
 
 num_classes = len(subcategories)
 model_ft = CLIPFineTuner(model, num_classes)
-model_ft.load_state_dict(torch.load('clip_finetuned_HE_syn.pth'))
+# model_ft.load_state_dict(torch.load('clip_finetuned_HE_syn.pth'))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_ft.to(device)
 
