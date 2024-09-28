@@ -19,15 +19,15 @@ train_config = {
     'show_interval': 100,
     'classes':3,
     # 'valid_interval': 500,
-    # 'hindi_path_syn': '/DATA1/ocrteam/ScriptDataset/TrainDataset/SynData/hindi',
-    # 'english_path_syn':'/DATA1/ocrteam/ScriptDataset/TrainDataset/SynData/english',
-    # 'gujarati_path_syn':'/DATA1/ocrteam/ScriptDataset/TrainDataset/SynData/gujarati/train',
-    'hindi_path_real': '/DATA1/ocrteam/recognition/train/hindi/',
-    'english_path_real':'/DATA1/ocrteam/recognition/train/english/',
-    'punjabi_path_real':'/DATA1/ocrteam/recognition/train/punjabi/',
-    # 'gujarati_path_real':'/DATA1/ocrteam/recognition/train/gujarati',
+    # 'hindi_path_syn': path for hindi_syn(folder),
+    # 'english_path_syn': path for english_syn,
+    # 'gujarati_path_syn': path for guj_syn,
+    # 'hindi_path_real': path for hindi_real,
+    # 'english_path_real': path for eng_real,
+    # 'punjabi_path_real': path for pun_real,
+    # 'gujarati_path_real': path for guj_real,
     'cpu_workers': 4,
-    'checkpoints_dir': '/DATA1/ocrteam/CRNN/savedModels/HEP/'
+    # 'checkpoints_dir': model saving path
     
 }
 train_config.update(common_config)
@@ -35,16 +35,27 @@ train_config.update(common_config)
 test_config = {
     'test_batch_size': 512,
     'cpu_workers': 4,
-    'reload_model': '/DATA1/ocrteam/CRNN/savedModels/HEP/crnn_real_t2.pt',
+    # 'reload_model': model_path,
     'max_images':9000,
     'classes':3,
-    'hindi_path_real_train': '/DATA1/ocrteam/recognition/train/hindi/',
-    'english_path_real_train':'/DATA1/ocrteam/recognition/train/english/',
-    # 'gujarati_path_real_train':'/DATA1/ocrteam/recognition/train/gujarati'
-    'punjabi_path_real_train':'/DATA1/ocrteam/recognition/train/punjabi/',
-    'hindi_path': '/DATA1/ocrteam/recognition/test/hindi',
-    'english_path':'/DATA1/ocrteam/recognition/test/english',
-    'punjabi_path':'/DATA1/ocrteam/recognition/test/punjabi',
-    # 'gujarati_path':'/DATA1/ocrteam/recognition/test/gujarati',
+    # 'hindi_path_real_train': hin_real_train_path,
+    # 'english_path_real_train':eng_real_train_path,
+    # 'gujarati_path_real_train':guj_real_train_path
+    # 'punjabi_path_real_train':pun_real_train_path,
+    # 'hindi_path': hin_test_path,
+    # 'english_path':eng_test_path,
+    # 'punjabi_path': pun_test_path,
+    # 'gujarati_path': guj_test_path,
 }
 test_config.update(common_config)
+
+
+
+infer_config = {
+    'model_path':'trained_model_path',
+    'img_path': 'image_path'
+    # 'num':2
+
+}
+
+infer_config.update(common_config)

@@ -7,6 +7,8 @@ import os
 import torch
 
 
+
+
 app=FastAPI()
 
 
@@ -59,7 +61,7 @@ model_info = {
 def load_model(model_path, num_classes):
 
 
-    crnn = CRNN(3, 32, 64, num_classes, map_to_seq_hidden=32, rnn_hidden=256, leaky_relu=True)
+    crnn = CRNN(3, 32, 64, num_classes, map_to_seq_hidden=32, rnn_hidden=256, leaky_relu=False)
     crnn.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     crnn.eval()
     return crnn
@@ -99,3 +101,5 @@ async def predict_image(model_key: str, file: UploadFile = File(...)):
 @app.get("/")
 def root():
     return {"Hello":"World"}    
+
+
