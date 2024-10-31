@@ -1,0 +1,5 @@
+jupyter 
+transformers 
+datasets
+torchvision
+Pillow
