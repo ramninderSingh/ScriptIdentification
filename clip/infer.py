@@ -17,6 +17,10 @@ model_info = {
     "hinengguj": {
         "path": "models/clip/clip_finetuned_HEP_real.pth",
         "subcategories": ["Hindi", "English", "Gujarati"]
+    },
+    "all" : {
+        "path": "all_models/clip_finetuned_hindienglishassamesebengaligujaratikannadamalayalammarathimeiteiodiapunjabitamiltelugu_real.pth",
+        "subcategories": ['hindi','english','bengali','gujarati','kannada','odia','punjabi','tamil','telugu','assamese','malayalam','meitei','urdu']
     }
 }
 
@@ -37,18 +41,23 @@ class CLIPFineTuner(torch.nn.Module):
         return self.classifier(features)  # Return class logits
 
 # Function to predict the class of an image
-def predict(model_path, image_path, model_name):
+def predict(image_path, model_name):
     try:
         # Get the subcategories based on the model name
         if model_name not in model_info:
             return {"error": "Invalid model name"}
 
         subcategories = model_info[model_name]["subcategories"]
+        model_path = model_info[model_name]["path"]
         num_classes = len(subcategories)
 
         # Load the fine-tuned model
         model_ft = CLIPFineTuner(clip_model, num_classes)
-        model_ft.load_state_dict(torch.load(model_path, map_location=device))
+        try:
+            model_ft.load_state_dict(torch.load(model_path, map_location=device,weights_only=False))
+        except Exception as e:
+            return {"error": f"Failed to load model from path {model_path}: {str(e)}"}
+        
         model_ft = model_ft.to(device)
         model_ft.eval()
 
@@ -72,12 +81,11 @@ if __name__ == "__main__":
 
     # Argument parser to take inputs from the command line
     parser = argparse.ArgumentParser(description="Image classification using CLIP fine-tuned model")
-    parser.add_argument("model_path", type=str, help="Path to the fine-tuned model")
     parser.add_argument("image_path", type=str, help="Path to the input image")
     parser.add_argument("model_name", type=str, choices=model_info.keys(), help="Name of the model (e.g., hineng, hinengpun, hinengguj)")
 
     args = parser.parse_args()
 
     # Call the predict function with inputs
-    result = predict(args.model_path, args.image_path, args.model_name)
+    result = predict(args.image_path, args.model_name)
     print(result)
