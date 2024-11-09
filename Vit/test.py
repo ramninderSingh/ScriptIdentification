@@ -1,5 +1,5 @@
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay,precision_score, recall_score, f1_score
-from EDA import ImageDataset4
+from EDA import TestEDA
 from config import test_config as config
 import matplotlib.pyplot as plt
 from transformers import AutoImageProcessor,ViTForImageClassification,pipeline
@@ -53,7 +53,7 @@ print(data_folders.keys())
 #             y_true.append(label)
 #             y_pred.append(predicted_label) 
 
-dataset = ImageDataset4(data_folders,max_images=config['max_images'])
+dataset = TestEDA(data_folders,max_images=config['max_images'])
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 

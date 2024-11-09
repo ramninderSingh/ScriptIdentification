@@ -1,7 +1,7 @@
 from sklearn.model_selection import train_test_split
 from datasets import DatasetDict,Dataset,ClassLabel
 from evaluate import load as load_metric
-from EDA import ImageDataset3
+from EDA import TrainEDA
 from torch.utils.data import DataLoader, random_split, ConcatDataset
 from transformers import AutoImageProcessor,ViTForImageClassification,TrainingArguments,Trainer
 from config import train_config as config
@@ -70,7 +70,7 @@ class_labels = ClassLabel(names=list(data_folders.keys()))
 
 all_images = []
 for label, folder in data_folders.items():
-    all_images.extend(ImageDataset3(folder,label,max_images=config['max_images_real']))
+    all_images.extend(TrainEDA(folder,label,max_images=config['max_images_real']))
 
 
 
