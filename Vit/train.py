@@ -1,7 +1,7 @@
 from sklearn.model_selection import train_test_split
 from datasets import DatasetDict,Dataset,ClassLabel
 from evaluate import load as load_metric
-from EDA import TrainEDA
+from eda import TrainEDA
 from torch.utils.data import DataLoader, random_split, ConcatDataset
 from transformers import AutoImageProcessor,ViTForImageClassification,TrainingArguments,Trainer
 from config import train_config as config

@@ -1,5 +1,5 @@
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay,precision_score, recall_score, f1_score
-from EDA import TestEDA
+from eda import TestEDA
 from config import test_config as config
 import matplotlib.pyplot as plt
 from transformers import AutoImageProcessor,ViTForImageClassification,pipeline
