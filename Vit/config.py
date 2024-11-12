@@ -48,7 +48,9 @@ test_config.update(common_config)
 
 infer_config = {
     'model_path':'<path_for_model>',
-    'img_path': 'image_path'    
+    'img_path': 'image_path',
+    'folder_path':'<path_dataset_folder>',
+    'csv_path':'<csv_path>',
 }
 
 
