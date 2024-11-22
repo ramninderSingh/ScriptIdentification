@@ -8,7 +8,9 @@ conda create -n scriptdetect python=3.9 -y
 conda activate scriptdetect
 
 conda install pytorch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 pytorch-cuda=11.8 -c pytorch -c nvidia
-pip install openai-clip==1.0.1
+
+cd clip
+pip install -r requirements.txt
 ```
 
 ## Inference
