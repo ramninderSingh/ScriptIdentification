@@ -1,15 +1,21 @@
 import pandas as pd
+import os
+import argparse
 
 def calculate_accuracy(test_csv_path, prediction_csv_path):
     # Load test and prediction CSV files
     test_df = pd.read_csv(test_csv_path)
     prediction_df = pd.read_csv(prediction_csv_path)
 
-    # Merge on the filepath column to align targets with predictions
-    merged_df = pd.merge(test_df, prediction_df, on="Filepath", how="inner")
-    print(merged_df)
-    # Compare the target and predicted columns
-    correct_predictions = (merged_df["Language"] == merged_df["predicted_class"].str.lower()).sum()
+    # Extract only filenames from the Filepath column
+    test_df["Filename"] = test_df["Filepath"].apply(lambda x: os.path.basename(x))
+    prediction_df["Filename"] = prediction_df["Filepath"].apply(lambda x: os.path.basename(x))
+
+    # Merge on the Filename column to align targets with predictions
+    merged_df = pd.merge(test_df, prediction_df, on="Filename", suffixes=('_test', '_pred'), how="inner")
+    
+    # Compare the target and predicted columns (case-insensitive comparison)
+    correct_predictions = (merged_df["Language_test"].str.lower() == merged_df["Language_pred"].str.lower()).sum()
     total_predictions = len(merged_df)
     accuracy = correct_predictions / total_predictions if total_predictions > 0 else 0
 
@@ -19,7 +25,7 @@ def calculate_accuracy(test_csv_path, prediction_csv_path):
 
 # If this file is run directly, accept inputs
 if __name__ == "__main__":
-    import argparse
+
 
     # Argument parser to take inputs from the command line
     parser = argparse.ArgumentParser(description="Calculate accuracy by comparing predictions with targets")
