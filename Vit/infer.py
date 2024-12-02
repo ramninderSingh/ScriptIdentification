@@ -15,70 +15,65 @@ from config import infer_config as config
 
 model_info = {
     "hindi": {
-        "path": "models/he",
-        "url" : "",
+        "path": "models/hindienglish",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglish.zip",
         "subcategories": ["hindi", "english"]
     },
     "assamese": {
-        "path": "models/hea",
-        "url": "https://github.com/adityarathor007/test/releases/download/V1/hea.zip",
+        "path": "models/hindienglishassamese",
+        "url": "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishassamese.zip",
         "subcategories": ["hindi", "english", "assamese"]
     },
     "bengali": {
-        "path": "models/heb",
-        "url" : "",
+        "path": "models/hindienglishbengali",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishbengali.zip",
         "subcategories": ["hindi", "english", "bengali"]
     },
     "gujarati": {
-        "path": "models/heg",
-        "url" : "",
+        "path": "models/hindienglishgujarati",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishgujarati.zip",
         "subcategories": ["hindi", "english", "gujarati"]
     },
     "kannada": {
-        "path": "models/hek",
-        "url" : "",
+        "path": "models/hindienglishkannada",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishkannada.zip",
         "subcategories": ["hindi", "english", "kannada"]
     },
     "malayalam": {
-        "path": "models/hem",
-        "url" : "",
+        "path": "models/hindienglishmalayalam",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishmalayalam.zip",
         "subcategories": ["hindi", "english", "malayalam"]
     },
     "marathi": {
-        "path": "models/hema",
-        "url" : "",
+        "path": "models/hindienglishmarathi",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishmarathi.zip",
         "subcategories": ["hindi", "english", "marathi"]
     },
     "meitei": {
-        "path": "models/heme",
-        "url" : "",
+        "path": "models/hindienglishmeitei",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishmeitei.zip",
         "subcategories": ["hindi", "english", "meitei"]
     },
     "odia": {
-        "path": "models/heo",
-        "url" : "",
+        "path": "models/hindienglishodia",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishodia.zip",
         "subcategories": ["hindi", "english", "odia"]
     },
     "punjabi": {
-        "path": "models/hep",
-        "url" : "",
+        "path": "models/hindienglishpunjabi",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishpunjabi.zip",
         "subcategories": ["hindi", "english", "punjabi"]
     },
     "tamil": {
-        "path": "models/het",
-        "url" : "",
+        "path": "models/hindienglishtamil",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishtamil.zip",
         "subcategories": ["hindi", "english", "tamil"]
     },
     "telugu": {
-        "path": "models/hetu",
-        "url" : "",
+        "path": "models/hindienglishtelugu",
+        "url" : "https://github.com/Bhashini-IITJ/ScriptIdentification/releases/download/Vit_Models/hindienglishtelugu.zip",
         "subcategories": ["hindi", "english", "telugu"]
     },
-    "urdu": {
-        "path": "models/heu",
-        "url" : "",
-        "subcategories": ["hindi", "english", "urdu"]
-    }
 }
 
 pretrained_vit_model = config['pretrained_vit_model']
@@ -191,7 +186,6 @@ if __name__ == "__main__":
 
     # Choose function based on the batch parameter
     if args.batch:
-        print("hello")
         if not args.image_dir:
             print("Error: image_dir is required when batch is set to True.")
         else:
