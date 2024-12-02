@@ -1,0 +1,7 @@
+jupyter 
+transformers 
+datasets
+torchvision
+Pillow
+fastapi
+uvicorn
