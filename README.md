@@ -1,4 +1,4 @@
-# ScriptIdentification
+# Script Identification for Indian Language Scene Text
 This repository contains scripts and models for identifying scripts in text using different machine learning approaches. The project is structured into three main sections, each implementing a different method for script identification: CLIP, CRNN, and ViT (Vision Transformer).
 
 ## Overview
