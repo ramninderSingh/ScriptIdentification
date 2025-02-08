@@ -29,7 +29,7 @@ Similar to above in the config.py file under test_config pass the images folder 
 
 To test
 ```bash
-python test_crnn.py
+python test.py
 ```
 
 The code will output class-wise accuracy along with macro precision, recall, and F1-score. Additionally, a confusion matrix will be saved in the best_model's folder
