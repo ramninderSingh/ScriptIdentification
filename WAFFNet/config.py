@@ -12,7 +12,7 @@ from datetime import datetime
 # =====================================================
 #  PATHS
 # =====================================================
-
+STANDARD_SIZE = (224, 224)
 # Dataset base paths
 TRAIN_DATA_PATH = r"C:\Users\HP\Desktop\BTP\Git\augmented_dataset_5000"
 TEST_DATA_PATH = r"C:\Users\HP\Desktop\BTP\recognition\recognition\test_478"  

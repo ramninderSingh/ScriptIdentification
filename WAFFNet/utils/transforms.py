@@ -1,6 +1,7 @@
 # utils/transforms.py
 import torchvision.transforms as T
-from ..config import STANDARD_SIZE
+
+STANDARD_SIZE = (224, 224)
 
 def get_train_transforms():
     return T.Compose([
