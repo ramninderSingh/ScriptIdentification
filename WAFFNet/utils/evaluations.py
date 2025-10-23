@@ -11,11 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
 
-
-# ===============================================================
 #  Core Metrics
-# ===============================================================
-
 def compute_metrics(true_labels, pred_labels, class_names):
     """Compute and print overall + per-class accuracy."""
     accuracy = accuracy_score(true_labels, pred_labels)
@@ -49,10 +45,7 @@ def compute_metrics(true_labels, pred_labels, class_names):
 
     return accuracy
 
-# ===============================================================
 #  Confusion Matrix
-# ===============================================================
-
 def plot_confusion_matrix(true_labels, pred_labels, class_names, save_path=None):
     """Display and optionally save confusion matrix."""
     cm = confusion_matrix(true_labels, pred_labels)
@@ -69,11 +62,7 @@ def plot_confusion_matrix(true_labels, pred_labels, class_names, save_path=None)
 
     plt.show()
 
-
-# ===============================================================
 #  Save Predictions (CSV)
-# ===============================================================
-
 def save_predictions_csv(results_dict, output_path="results/predictions.csv"):
     """Save predictions as CSV: filename, predicted_label."""
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -81,11 +70,7 @@ def save_predictions_csv(results_dict, output_path="results/predictions.csv"):
     df.to_csv(output_path, index=False)
     print(f"Predictions saved to: {output_path}")
 
-
-# ===============================================================
 #  Visualization
-# ===============================================================
-
 def visualize_predictions_per_class(model, dataset, subcategories, device, examples_per_class=5):
     """Show sample predictions for each language."""
     import random

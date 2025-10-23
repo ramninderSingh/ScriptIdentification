@@ -24,7 +24,7 @@ from utils.transforms import get_train_transforms, get_val_transforms
 from models.waffnet import WAFFNetPP
 from utils.losses import FocalLoss
 from config import (
-    DATASET_BASE_PATH,
+    TRAIN_DATA_PATH,
     TRAIN_INDEX_PATH,
     MODEL_SAVE_PATH,
     DEVICE,
@@ -78,7 +78,7 @@ def build_dataset_index(base_path, save_path):
 def train():
     # Ensure dataset index exists
     if not os.path.exists(TRAIN_INDEX_PATH):
-        dataset = build_dataset_index(DATASET_BASE_PATH, TRAIN_INDEX_PATH)
+        dataset = build_dataset_index(TRAIN_DATA_PATH, TRAIN_INDEX_PATH)
     else:
         dataset = pd.read_pickle(TRAIN_INDEX_PATH)
         print(f"Loaded dataset index: {dataset.shape[0]} samples.")

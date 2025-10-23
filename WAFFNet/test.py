@@ -36,16 +36,6 @@ from config import (
 
 
 def build_test_dataframe(test_dir: str, class_names: List[str]) -> pd.DataFrame:
-    """
-    Scans the test directory and builds a DataFrame with image paths and labels.
-
-    Args:
-        test_dir (str): Path to the root test dataset directory.
-        class_names (List[str]): List of subfolder names representing classes.
-
-    Returns:
-        pd.DataFrame: DataFrame with columns ['image_path', 'label'].
-    """
     valid_exts = (".png", ".jpg", ".jpeg", ".bmp")
     data = []
 
@@ -74,14 +64,7 @@ def evaluate_model(
     weights_path: str = MODEL_SAVE_PATH,
     weights_id: str = MODEL_DRIVE_ID
 ) -> None:
-    """
-    Run WAFFNet++ evaluation using config-driven paths.
 
-    Args:
-        test_dir (str): Directory containing labeled test images.
-        weights_path (str): Local path to model weights.
-        weights_id (str): Drive ID for fallback weight download.
-    """
     os.makedirs(RESULTS_DIR, exist_ok=True)
     device = torch.device(DEVICE)
 
