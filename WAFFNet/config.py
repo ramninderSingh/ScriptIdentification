@@ -5,31 +5,34 @@ Project: Script Identification
 ---------------------------------
 Holds all paths, hyperparameters, and device settings.
 """
-
+import os
 import torch
 from datetime import datetime
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # =====================================================
 #  PATHS
 # =====================================================
 STANDARD_SIZE = (224, 224)
 # Dataset base paths
-TRAIN_DATA_PATH = r"C:\Users\HP\Desktop\BTP\Git\augmented_dataset_5000"
-TEST_DATA_PATH = r"C:\Users\HP\Desktop\BTP\recognition\recognition\test_478"  
+TRAIN_DATA_PATH = r"C:\Users\HP\Desktop\BTP\Git\augmented_dataset_5000"  #Replace with your training data path
+TEST_DATA_PATH = r"C:\Users\HP\Desktop\BTP\recognition\recognition\test_478"  #Replace with your test data path
 
 # Index files
-TRAIN_INDEX_PATH = "all_train/recognition_index.pkl"
-TEST_INDEX_PATH = "all_train/recognition_test_index.pkl"
+TRAIN_INDEX_PATH = os.path.join(BASE_DIR, "all_train", "recognition_index.pkl")
+TEST_INDEX_PATH = os.path.join(BASE_DIR, "all_train", "recognition_test_index.pkl")
+
 
 # Model checkpoints
-MODEL_SAVE_PATH = "weights/waffnet_best_cbam.pth"
+MODEL_SAVE_PATH = os.path.join(BASE_DIR, "weights", "waffnet_best_cbam.pth")
 
 # Google Drive backup ID (for auto-download via gdown)
 MODEL_DRIVE_ID = "1McEiKujTfxCBfwhAsnTG1P2uJw8OaDbj"
 
 # Output and logging
-RESULTS_DIR = "results"
-LOG_DIR = f"logs/train_{datetime.now().strftime('%Y%m%d_%H%M%S')}/"
+RESULTS_DIR = os.path.join(BASE_DIR, "results")
+LOG_DIR = os.path.join(BASE_DIR, f"logs/train_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
+
 
 # =====================================================
 #  TRAINING PARAMETERS
