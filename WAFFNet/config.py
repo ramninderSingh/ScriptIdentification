@@ -1,60 +1,66 @@
 """
-config.py — Central configuration for WAFFNet++ training
+config.py — Central configuration for WAFFNet++
 Author: Ramninder Singh
-Project: ScriptIdentification (WAFFNet++)
--------------------------------------------
-This file holds all training parameters and dataset paths.
-Modify these values to retrain or fine-tune the model.
+Project: Script Identification
+---------------------------------
+Holds all paths, hyperparameters, and device settings.
 """
 
 import torch
 from datetime import datetime
 
-# =====================
+# =====================================================
 #  PATHS
-# =====================
+# =====================================================
 
-# Base dataset path (change this to your local or cloud dataset directory)
-DATASET_BASE_PATH = r"C:\Users\HP\Desktop\BTP\Git\augmented_dataset_5000"
+# Dataset base paths
+TRAIN_DATA_PATH = r"C:\Users\HP\Desktop\BTP\Git\augmented_dataset_5000"
+TEST_DATA_PATH = r"C:\Users\HP\Desktop\BTP\recognition\recognition\test_478"  
 
-# Location where the dataset index will be saved
+# Index files
 TRAIN_INDEX_PATH = "all_train/recognition_index.pkl"
+TEST_INDEX_PATH = "all_train/recognition_test_index.pkl"
 
-# Model checkpoint save path
-MODEL_SAVE_PATH = "weights/waffnetpp_best_cbam.pth"
+# Model checkpoints
+MODEL_SAVE_PATH = "weights/waffnet_best_cbam.pth"
 
-# Logging directory
+# Google Drive backup ID (for auto-download via gdown)
+MODEL_DRIVE_ID = "1McEiKujTfxCBfwhAsnTG1P2uJw8OaDbj"
+
+# Output and logging
+RESULTS_DIR = "results"
 LOG_DIR = f"logs/train_{datetime.now().strftime('%Y%m%d_%H%M%S')}/"
 
-# =====================
+# =====================================================
 #  TRAINING PARAMETERS
-# =====================
+# =====================================================
 
 BATCH_SIZE = 32
 IMAGE_SIZE = (224, 224)
 NUM_WORKERS = 2
 LEARNING_RATE = 1e-4
 WEIGHT_DECAY = 1e-4
-MAX_EPOCHS = 50
-PATIENCE = 3
+MAX_EPOCHS = 100
+PATIENCE = 10
 FOCAL_GAMMA = 2.0
 T_MAX = 10
 ETA_MIN = 1e-6
 GRAD_CLIP = 5.0
 
-# =====================
+# =====================================================
 #  MODEL / DEVICE
-# =====================
+# =====================================================
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 NUM_CLASSES = 12  # can be inferred dynamically
 PRINT_MODEL_SUMMARY = True
 
-# =====================
-#  AUGMENTATION SETTINGS
-# =====================
+# =====================================================
+#  CLASS LABELS
+# =====================================================
 
-RANDOM_ROTATION = 5
-COLOR_JITTER = (0.3, 0.3, 0.2, 0.05)
-RANDOM_AFFINE = (0.1, 0.1)
-PERSPECTIVE_DISTORTION = 0.3
+LANGUAGES = [
+    "assamese", "bengali", "english", "gujarati", "hindi",
+    "kannada", "malayalam", "marathi", "odia",
+    "punjabi", "tamil", "telugu",
+]
