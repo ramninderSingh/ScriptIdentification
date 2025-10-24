@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ## WAFFNet++ Model
 
-The **WAFFNet++** model for Script Identification trained on the **BSTD (12-language dataset)** can be downloaded from:
+The **WAFFNet++** model for Script Identification trained on the augmented version of **BSTD (12-language dataset)** can be downloaded from:
 
 [Download Model Weights (Google Drive)](https://drive.google.com/file/d/1McEiKujTfxCBfwhAsnTG1P2uJw8OaDbj/view?usp=sharing)
 
@@ -117,4 +117,4 @@ WAFFNet/
 
 ## Acknowledgements
 
-This implementation is part of the **Script Identification** project and extends previous work on CNN-based and ViT-based architectures for multilingual handwritten script classification.
+This implementation is part of the **Script Identification** project and extends previous work on CNN-based and ViT-based architectures for multilingual script classification.
