@@ -15,6 +15,7 @@ pip install -r requirements.txt
 The **WAFFNet++** model for Script Identification trained on the augmented version of **BSTD (12-language dataset)** can be downloaded from:
 
 [Download Model Weights (Google Drive)](https://drive.google.com/file/d/1McEiKujTfxCBfwhAsnTG1P2uJw8OaDbj/view?usp=sharing)
+[Download Training Data (Google Drvie)](https://drive.google.com/uc?id=1CxAveZr7HEp5lB4PSJt_yL9lTT9BcX1U)
 
 ---
 
